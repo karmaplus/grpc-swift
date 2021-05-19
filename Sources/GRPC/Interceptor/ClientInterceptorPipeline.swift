@@ -430,6 +430,9 @@ extension ClientInterceptorPipeline {
   internal func close() {
     self.eventLoop.assertInEventLoop()
     self._isOpen = false
+    
+    // Clear user contexts.
+    self._userContexts.removeAll()
 
     // Cancel the timeout.
     self._scheduledClose?.cancel()
